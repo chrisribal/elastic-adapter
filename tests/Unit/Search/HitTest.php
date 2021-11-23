@@ -30,6 +30,7 @@ final class HitTest extends TestCase
             '_source' => ['title' => 'foo'],
             '_score' => 1.3,
             'highlight' => ['title' => [' <em>foo</em> ']],
+            'sort' => ['2021-05-20T05:30:04.832Z', 4294967298],
         ]);
     }
 
@@ -66,6 +67,11 @@ final class HitTest extends TestCase
         $this->assertSame(1.3, $this->hit->score());
     }
 
+    public function test_sort_can_be_retrieved(): void
+    {
+        $this->assertSame(['2021-05-20T05:30:04.832Z', 4294967298], $this->hit->sort());
+    }
+
     public function test_raw_representation_can_be_retrieved(): void
     {
         $this->assertSame([
@@ -74,6 +80,7 @@ final class HitTest extends TestCase
             '_source' => ['title' => 'foo'],
             '_score' => 1.3,
             'highlight' => ['title' => [' <em>foo</em> ']],
+            'sort' => ['2021-05-20T05:30:04.832Z', 4294967298],
         ], $this->hit->raw());
     }
 }

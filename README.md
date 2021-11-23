@@ -27,8 +27,9 @@ operations.
 
 * [Compatibility](#compatibility)
 * [Installation](#installation) 
-* [Index Management](#index-management)
-* [Document Management](#document-management)
+* [Index management](#index-management)
+* [Document management](#document-management)
+* [Point in time management](#point-in-time-management)
 
 ## Compatibility
 
@@ -46,7 +47,7 @@ The library can be installed via Composer:
 composer require babenkoivan/elastic-adapter
 ```
 
-## Index Management
+## Index management
 
 `IndexManager` can be used to manipulate indices. It uses Elasticsearch client as a dependency,
 therefore you need to initiate the client before you create an `IndexManager` instance:
@@ -129,7 +130,7 @@ Delete an index:
 $indexManager->drop('my_index');
 ```
 
-### Put Mapping
+### Put mapping
 
 Update an index mapping using builder:
 
@@ -160,7 +161,7 @@ $mapping = [
 $indexManager->putMappingRaw('my_index', $mapping);
 ```
 
-### Put Settings
+### Put settings
 
 Update an index settings using builder:
 
@@ -212,7 +213,7 @@ Close an index:
 $indexManager->close('my_index');
 ```
 
-### Put Alias
+### Put alias
 
 Create an alias:
 
@@ -226,7 +227,7 @@ $alias = new \ElasticAdapter\Indices\Alias('my_alias', [
 $indexManager->putAlias('my_index', $alias);
 ```
 
-### Get Aliases
+### Get aliases
 
 Get index aliases:
 
@@ -234,7 +235,7 @@ Get index aliases:
 $indexManager->getAliases('my_index');
 ```
 
-### Delete Alias
+### Delete alias
 
 Delete an alias:
 
@@ -242,7 +243,7 @@ Delete an alias:
 $indexManager->deleteAlias('my_index', 'my_alias');
 ```
 
-## Document Management
+## Document management
 
 Similarly to `IndexManager`, the `DocumentManager` class also depends on Elasticsearch client:
 
@@ -451,4 +452,33 @@ $suggestions = $response->suggestions();
 
 // get the aggregations
 $aggregations = $response->aggregations();
+```
+
+## Point in time management
+
+`PointInTimeManager` is used to control points in time:
+
+```php
+$client = \Elasticsearch\ClientBuilder::fromConfig([
+  'hosts' => [
+      'localhost:9200'
+  ]
+]);
+
+$pointInTimeManager = new \ElasticAdapter\Search\PointInTimeManager($client);
+``` 
+
+### Open
+
+Open a point in time:
+
+```php
+$pointInTimeId = $pointInTimeManager->open('my_index', '1m');
+```
+### Close
+
+Close a point in time:
+
+```php
+$pointInTimeManager->close($pointInTimeId);
 ```

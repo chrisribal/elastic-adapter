@@ -23,7 +23,7 @@ final class Hit implements RawResponseInterface
 
     public function score(): ?float
     {
-        return $this->hit['_score'];
+        return $this->hit['_score'] ?? null;
     }
 
     public function document(): Document
@@ -38,6 +38,11 @@ final class Hit implements RawResponseInterface
     {
         return isset($this->hit['highlight']) ?
             new Highlight($this->hit['highlight']) : null;
+    }
+
+    public function sort(): ?array
+    {
+        return $this->hit['sort'] ?? null;
     }
 
     public function raw(): array

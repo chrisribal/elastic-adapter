@@ -112,6 +112,24 @@ final class SearchRequest implements Arrayable
         return $this;
     }
 
+    public function pointInTime(string $id, string $keepAlive = null): self
+    {
+        $pit = ['id' => $id];
+
+        if (isset($keepAlive)) {
+            $pit['keep_alive'] = $keepAlive;
+        }
+
+        $this->request['pit'] = $pit;
+        return $this;
+    }
+
+    public function searchAfter(array $sort): self
+    {
+        $this->request['search_after'] = $sort;
+        return $this;
+    }
+
     public function toArray(): array
     {
         return $this->request;

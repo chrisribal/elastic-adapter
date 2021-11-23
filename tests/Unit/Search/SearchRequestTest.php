@@ -394,4 +394,45 @@ final class SearchRequestTest extends TestCase
             'min_score' => 0.5,
         ], $request->toArray());
     }
+
+    public function test_array_casting_with_point_in_time(): void
+    {
+        $request = new SearchRequest([
+            'match_all' => new stdClass(),
+        ]);
+
+        $request->pointInTime('46ToAwMDaWR5BXV1', '1m');
+
+        $this->assertEquals([
+            'query' => [
+                'match_all' => new stdClass(),
+            ],
+            'pit' => [
+                'id' => '46ToAwMDaWR5BXV1',
+                'keep_alive' => '1m',
+            ],
+        ], $request->toArray());
+    }
+
+    public function test_array_casting_with_search_after(): void
+    {
+        $request = new SearchRequest([
+            'match_all' => new stdClass(),
+        ]);
+
+        $request->searchAfter([
+            '2021-05-20T05:30:04.832Z',
+            4294967298,
+        ]);
+
+        $this->assertEquals([
+            'query' => [
+                'match_all' => new stdClass(),
+            ],
+            'search_after' => [
+                '2021-05-20T05:30:04.832Z',
+                4294967298,
+            ],
+        ], $request->toArray());
+    }
 }
