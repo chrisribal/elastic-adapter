@@ -401,7 +401,10 @@ final class SearchRequestTest extends TestCase
             'match_all' => new stdClass(),
         ]);
 
-        $request->pointInTime('46ToAwMDaWR5BXV1', '1m');
+        $request->pointInTime([
+            'id' => '46ToAwMDaWR5BXV1',
+            'keep_alive' => '1m',
+        ]);
 
         $this->assertEquals([
             'query' => [
