@@ -16,7 +16,7 @@ final class PointInTimeManager
         $this->client = $client;
     }
 
-    public function open(string $indexName, string $keepAlive = null): string
+    public function create(string $indexName, string $keepAlive = null): string
     {
         $params = ['index' => $indexName];
 
@@ -29,7 +29,7 @@ final class PointInTimeManager
         return $response['id'];
     }
 
-    public function close(string $pointInTimeId): self
+    public function delete(string $pointInTimeId): self
     {
         $this->client->closePointInTime([
             'body' => [

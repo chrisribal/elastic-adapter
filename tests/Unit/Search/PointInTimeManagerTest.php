@@ -29,7 +29,7 @@ final class PointInTimeManagerTest extends TestCase
         $this->pointInTimeManager = new PointInTimeManager($this->client);
     }
 
-    public function test_point_in_time_can_be_opened(): void
+    public function test_point_in_time_can_be_created(): void
     {
         $this->client
             ->expects($this->once())
@@ -42,10 +42,10 @@ final class PointInTimeManagerTest extends TestCase
                 'id' => '46ToAwMDaWR5BXV1',
             ]);
 
-        $this->assertSame('46ToAwMDaWR5BXV1', $this->pointInTimeManager->open('test', '1m'));
+        $this->assertSame('46ToAwMDaWR5BXV1', $this->pointInTimeManager->create('test', '1m'));
     }
 
-    public function test_point_in_time_can_be_closed(): void
+    public function test_point_in_time_can_be_deleted(): void
     {
         $this->client
             ->expects($this->once())
@@ -56,6 +56,6 @@ final class PointInTimeManagerTest extends TestCase
                 ],
             ]);
 
-        $this->assertSame($this->pointInTimeManager, $this->pointInTimeManager->close('46ToAwMDaWR5BXV1'));
+        $this->assertSame($this->pointInTimeManager, $this->pointInTimeManager->delete('46ToAwMDaWR5BXV1'));
     }
 }
