@@ -118,9 +118,9 @@ final class SearchRequest implements Arrayable
         return $this;
     }
 
-    public function searchAfter(array $sort): self
+    public function searchAfter(array $searchAfter): self
     {
-        $this->request['search_after'] = $sort;
+        $this->request['search_after'] = $searchAfter;
         return $this;
     }
 
