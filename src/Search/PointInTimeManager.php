@@ -16,7 +16,7 @@ final class PointInTimeManager
         $this->client = $client;
     }
 
-    public function create(string $indexName, string $keepAlive = null): string
+    public function create(string $indexName, ?string $keepAlive = null): string
     {
         $params = ['index' => $indexName];
 
